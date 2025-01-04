@@ -4,23 +4,18 @@ function showError(message, isSuccess = false) {
   const errorMessage = document.getElementById("error-message");
   const errorText = document.getElementById("error-text");
 
-  // Устанавливаем текст сообщения
   errorText.textContent = message;
 
-  // Убираем скрытие сообщения, если оно есть
   errorMessage.classList.remove("hidden");
 
-  // Убираем старые классы (успех или ошибка)
   errorMessage.classList.remove("success", "error");
 
-  // Добавляем нужный класс в зависимости от типа сообщения
   if (isSuccess) {
-    errorMessage.classList.add("success");  // Зеленый для успеха
+    errorMessage.classList.add("success");
   } else {
-    errorMessage.classList.add("error");    // Красный для ошибки
+    errorMessage.classList.add("error");
   }
 
-  // Закрываем сообщение через 2 секунды
   setTimeout(() => {
     errorMessage.classList.add("hidden");
   }, 2000);
@@ -28,16 +23,11 @@ function showError(message, isSuccess = false) {
 
 function hideError() {
   const errorMessage = document.getElementById("error-message");
-  errorMessage.classList.add("hidden"); // Прячем сообщение
+  errorMessage.classList.add("hidden");
 }
 
-// Скрываем сообщение при нажатии на кнопку закрытия
 document.getElementById("close-error").addEventListener("click", hideError);
 
-
-
-
-// Функция для получения текущей даты из БД
 async function fetchCurrentDate() {
   try {
     const response = await fetch(`${API_URL}/day/current`);
@@ -52,14 +42,12 @@ async function fetchCurrentDate() {
   }
 }
 
-// Функция для получения всех заказов
 async function fetchOrders() {
   const response = await fetch(`${API_URL}/orders`);
   const orders = await response.json();
   renderOrders(orders);
 }
 
-// Отображение всех заказов
 function renderOrders(orders) {
   const ordersDiv = document.getElementById("orders");
   ordersDiv.innerHTML = orders
@@ -99,8 +87,6 @@ function renderOrders(orders) {
     .join("");
 }
 
-
-// Удаление заказа
 async function deleteOrder(id) {
   try {
   const response = await fetch(`${API_URL}/orders/${id}`, { method: "DELETE" });
@@ -114,7 +100,6 @@ async function deleteOrder(id) {
   }
 }
 
-// Удаление позиции
 async function deletePosition(id) {
   try {
     const response = await fetch(`${API_URL}/positions/${id}`, { method: "DELETE" });
@@ -128,7 +113,6 @@ async function deletePosition(id) {
     }
 }
 
-// Перенос позиции в предыдущий заказ
 async function movePositionToBack(positionId) {
   try {
     const response = await fetch(`${API_URL}/positions/${positionId}/back`, {
@@ -139,14 +123,13 @@ async function movePositionToBack(positionId) {
       fetchOrders();
     } else {
       const errorMessage = await response.text();
-      showError(errorMessage); // Показываем ошибку от сервера
+      showError(errorMessage);
     }
   } catch (error) {
     showError("Перемещение не удалось");
   }
 }
 
-// Перенос позиции в следующий заказ
 async function movePositionToNext(positionId) {
   try {
     const response = await fetch(`${API_URL}/positions/${positionId}/move`, {
@@ -157,25 +140,12 @@ async function movePositionToNext(positionId) {
       fetchOrders();
     } else {
       const errorMessage = await response.text();
-      showError(errorMessage); // Показываем ошибку от сервера
+      showError(errorMessage);
     }
   } catch (error) {
     showError("Перемещение не удалось");
   }
 }
-
-// Открытие формы для добавления позиции в заказ
-// function openAddPositionForm(orderId) {
-//   const drug = prompt("Enter drug name:");
-//   const quantity = parseInt(prompt("Enter quantity:"), 10);
-
-//   if (!drug || isNaN(quantity) || quantity <= 0) {
-//     alert("Invalid input!");
-//     return;
-//   }
-
-//   addPositionToOrder(orderId, drug, quantity);
-// }
 
 function openAddPositionForm(orderId) {
   const modal = document.getElementById("addPositionModal");
@@ -183,10 +153,8 @@ function openAddPositionForm(orderId) {
   const cancelBtn = document.getElementById("cancelBtn");
   const form = document.getElementById("addPositionForm");
 
-  // Open modal
   modal.style.display = "block";
 
-  // Close modal
   function closeForm() {
     modal.style.display = "none";
     form.reset();
@@ -195,7 +163,6 @@ function openAddPositionForm(orderId) {
   closeModal.addEventListener("click", closeForm);
   cancelBtn.addEventListener("click", closeForm);
 
-  // Handle form submission
   form.onsubmit = function (e) {
     e.preventDefault();
     const drug = form.drugName.value.trim();
@@ -211,29 +178,22 @@ function openAddPositionForm(orderId) {
   };
 }
 
-// Добавление позиции в заказ с проверкой на рецепт
 async function addPositionToOrder(orderId, drug, quantity) {
-  // Получаем информацию о заказе
   const response = await fetch(`${API_URL}/orders/${orderId}`);
   const order = await response.json();
 
-  // Получаем информацию о препарате (нужно, чтобы знать, требует ли он рецепт)
   const drugInfo = await fetch(`${API_URL}/positions/drugs/${drug}`);
   const drugData = await drugInfo.json();
 
-  // Логируем полученную информацию о препарате
-  console.log("Drug Data:", drugData); // Выведем все данные о препарате для отладки
+  console.log("Drug Data:", drugData);
 
-  // Если в заказе нет рецепта, но препарат требует рецепт, выводим ошибку
   if (!order.prescription && drugData.requires_prescription) {
     showError("Данный заказ не может иметь рецептуальный препарат без рецепта");
     return;
   }
 
-  // Логируем перед отправкой запроса на сервер
   console.log("Sending position to add:", { drug, quantity, orderId });
 
-  // Если все проверки пройдены, добавляем позицию в заказ
   const positionResponse = await fetch(`${API_URL}/positions`, {
     method: "POST",
     headers: {
@@ -248,11 +208,10 @@ async function addPositionToOrder(orderId, drug, quantity) {
   } else {
     showError("Невозможно добавить позицию в заказ");
     const errorMessage = await positionResponse.text();
-    showError(errorMessage); // Показываем ошибку от сервера
+    showError(errorMessage);
   }
 }
 
-// Форма для создания нового заказа
 document.getElementById("createOrderForm").addEventListener("submit", async (e) => {
   e.preventDefault();
 
@@ -265,14 +224,11 @@ document.getElementById("createOrderForm").addEventListener("submit", async (e) 
     return;
   }
 
-  // Преобразуем строку даты в объект Date
   const dateObject = new Date(orderDate);
 
-  // Преобразуем объект Date в строку в формате ISO (UTC)
-  orderDate = dateObject.toISOString().split('T')[0]; // Извлекаем только дату (без времени)
+  orderDate = dateObject.toISOString().split('T')[0];
 
-  // Логируем перед отправкой на сервер
-  console.log('Processed Order Date:', orderDate); // Логируем дату, отправляемую на сервер
+  console.log('Processed Order Date:', orderDate);
 
   try {
     const response = await fetch(`${API_URL}/orders`, {
@@ -288,19 +244,18 @@ document.getElementById("createOrderForm").addEventListener("submit", async (e) 
     });
 
     if (response.ok) {
-      fetchOrders(); // Обновляем список заказов
+      fetchOrders();
       showError("Новый заказ создан", true);
       document.getElementById("createOrderForm").reset();
     } else {
       const errorMessage = await response.text();
-      showError(errorMessage); // Показываем ошибку от сервера
+      showError(errorMessage);
     }
   } catch (error) {
     showError("Ошибка при создании заказа");
   }
 });
 
-// Переключение дня
 async function switchDay() {
   const response = await fetch(`${API_URL}/day/next`, { method: "POST" });
   if (response.ok) {
@@ -312,8 +267,5 @@ async function switchDay() {
   }
 }
 
-// Инициализация
 fetchOrders();
 fetchCurrentDate();
-
-// was 129

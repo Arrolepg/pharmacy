@@ -8,7 +8,6 @@
 </head>
 <body>
   <div id="app">
-    <!-- Header -->
     <header class="header">
       <div class="header-content">
         <h1>Менеджер аптечных заказов</h1>
@@ -19,11 +18,7 @@
         <span class="user-name">Санта Клаус</span>
       </div>
     </header>
-
-    <!-- Switch day button -->
     <button class="switch-day" onclick="switchDay()">Следующий день</button>
-
-    <!-- Create New Order Section -->
     <section id="newOrderSection">
       <div class="create-order-form">
         <h2>Создать новый заказ</h2>
@@ -44,26 +39,18 @@
         </form>
       </div>
     </section>
-
-    <!-- Orders Section -->
     <section id="ordersSection">
       <h2>Сегодняшние заказы</h2>
       <div id="orders" class="orders-card">
-        <!-- Orders will be dynamically rendered here -->
       </div>
     </section>
   </div>
-  
-  <!-- Error/Success Message Section -->
   <div id="error-message" class="hidden">
     <div id="error-text"></div>
     <button id="close-error" class="close-button" >
       <img src="../assets/delete-button.svg" alt="Close" />
     </button>
   </div>
-  
-
-    <!-- Add Position Modal -->
     <div id="addPositionModal" class="modal">
       <div class="modal-content">
         <img src="../assets/delete-button.svg" class="close" id="closeModal" alt="Close">
@@ -92,5 +79,3 @@
   <script src="script.js"></script>
 </body>
 </html>
-
-<!-- was 33 -->

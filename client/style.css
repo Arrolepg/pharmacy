@@ -1,0 +1,500 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+#app {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+header {
+  background-color: #2e6e41;
+  color: rgb(255, 255, 255);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+header .header-content h1 {
+  margin: 0;
+}
+
+.current-date {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: bold;
+}
+
+.user-avatar {
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+}
+
+#newOrderSection {
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+/* Центрирование формы */
+.create-order-form {
+  width: 30%; /* Уменьшите ширину формы */
+  margin: 0 auto; /* Центрирование формы по горизонтали */
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Заголовок формы */
+.create-order-form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Лейблы и поля ввода */
+.create-order-form label {
+  display: block;
+  margin-bottom: 5px; /* Расстояние между лейблом и полем */
+  font-size: 14px; /* Размер текста для лейблов */
+  color: #333; /* Цвет текста */
+  text-align: left; /* Левое выравнивание */
+}
+
+.create-order-form input[type="text"],
+.create-order-form input[type="date"] {
+  width: 100%; /* Поля заполняют всю ширину контейнера */
+  padding: 8px; /* Внутренний отступ */
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 15px; /* Расстояние между полями */
+  font-size: 14px; /* Размер текста в полях */
+  box-sizing: border-box; /* Учитываем границы и отступы */
+}
+
+/* Центрирование чекбокса */
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.large-checkbox {
+  width: 16px; /* Уменьшение размера чекбокса */
+  height: 16px;
+}
+
+.checkbox-label {
+  font-size: 14px; /* Уменьшение размера текста */
+}
+
+/* Кнопка создания заказа */
+button {
+  width: 50%; /* Уменьшите ширину кнопки */
+  padding: 8px; /* Уменьшение внутреннего отступа */
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px; /* Уменьшение размера текста */
+  margin: 0 auto; /* Центрирование кнопки */
+  display: block;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+.create-but {
+  width: 150px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 25px;
+  background-color: #2e6e41;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.create-but:hover {
+  background-color: #124727;
+}
+
+#ordersSection {
+  flex: 1;
+  padding: 20px;
+}
+
+/* Основной стиль для заказа */
+
+.order-card {
+  flex: 0 0 auto; /* Фиксированная ширина карточек, но высота адаптивная */
+  width: 400px; /* Ширина карточки */
+  max-width: 100%; /* Поддержка адаптивности */
+  height: auto;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* Расстояние между элементами внутри карточки */
+}
+
+/* Заголовок заказа */
+.order-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* Статус Prescription */
+.prescription-status {
+  margin: 0;
+  font-size: 14px;
+  color: #555;
+}
+
+/* Список позиций */
+.positions-list {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+/* Элемент позиции */
+.position-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+/* Текст позиции */
+.position-text {
+  white-space: nowrap; /* Препарат и количество на одной строке */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Кнопки позиций */
+.position-buttons {
+  display: flex;
+  gap: 4px;
+}
+
+.position-buttons button {
+  padding: 4px 8px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+/* Блок кнопок заказа */
+.order-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+/* Овальные кнопки */
+.oval-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 25px;
+  background-color: #2e6e41;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.oval-button:nth-child(2):hover {
+  background-color: #124727;
+}
+
+.oval-button:nth-child(1) {
+  background-color: #843530;
+}
+
+.oval-button:nth-child(1):hover {
+  background-color: #4f1512;
+}
+
+#orders {
+  display: flex;
+  flex-direction: row; /* Горизонтальное размещение */
+  flex-wrap: wrap; /* Перенос на новую строку, если не помещаются */
+  align-items: flex-start;
+  gap: 20px; /* Расстояние между заказами */
+  padding: 10px 0;
+  overflow-x: auto; /* Добавляем горизонтальную прокрутку для узких экранов */
+}
+
+
+
+/*-------------------------------*/
+
+.icon-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.icon-button img {
+  width: 24px; /* Настройте размер изображения, если нужно */
+  height: 24px;
+}
+
+.icon-button:hover img {
+  filter: brightness(0.8); /* Легкий эффект затемнения при наведении */
+}
+
+.icon-button[title] {
+  position: relative;
+}
+
+.icon-button[title]::after {
+  content: attr(title);
+  position: absolute;
+  bottom: 125%; /* Расстояние над кнопкой */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 12px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  white-space: nowrap;
+  z-index: 10;
+}
+
+.icon-button:hover::after {
+  opacity: 1;
+}
+
+/* Убираем зелёный фон для кнопки удаления */
+.delete-button:hover {
+  background-color: transparent !important; /* Убираем фоновый цвет */
+}
+
+/*-------------------------------------------------------------------------------------------------*/
+
+#error-message {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 20px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 300px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+#error-message.hidden {
+  display: none;
+}
+
+#error-text {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* Зеленый фон, темно-зеленый текст и обводка для успешного сообщения */
+.success {
+  background-color: #7dba7f;
+  color: #155724; /* Темно-зеленый текст */
+  border: 2px solid #388E3C; /* Темно-зеленая обводка */
+}
+
+/* Красный фон, бордовый текст и обводка для ошибки */
+.error {
+  background-color: #ef857e;
+  color: #721c24; /* Бордовый текст */
+  border: 2px solid #d32f2f; /* Бордовая обводка */
+}
+
+/* Кнопка закрытия в правом верхнем углу */
+.close-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+}
+
+/* Стили для изображения в кнопке */
+.close-button img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;  /* Чтобы изображение не растягивалось */
+}
+
+.close-button:hover img {
+  filter: brightness(0.8); /* Легкий эффект затемнения при наведении */
+}
+
+.close-button[title] {
+  position: relative;
+}
+
+#error-message {
+  padding-right: 30px; /* Увеличиваем правый отступ, чтобы кнопка не была слишком близко к краю */
+}
+
+#error-message .close-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+.close-button:hover::after {
+  opacity: 1;
+}
+
+/* Убираем зелёный фон для кнопки удаления */
+.close-button:hover {
+  background-color: transparent !important; /* Убираем фоновый цвет */
+}
+
+/* Кнопка для переключения дня */
+button.switch-day {
+  margin-top: 20px; /* Отступ сверху */
+  margin-left: 20px; /* Отступ слева */
+  background-color: #2e6e41;
+  color: #ffffff;
+  border: 2px solid #124727;
+  font-size: 20px;
+  width: 200px;
+}
+
+.switch-day:hover {
+  background-color: #124727;
+}
+
+/*------------------------------------------------------------*/
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: white;
+  margin: auto;
+  padding: 20px;
+  border-radius: 8px;
+  width: 320px;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.close {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  width: 20px;
+  cursor: pointer;
+}
+
+.modal-content h2 {
+  margin-bottom: 20px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.input-field {
+  width: 100%;
+  padding: 10px 15px;
+  margin: 10px 0;
+  border: 2px solid #ccc;
+  border-radius: 25px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.input-field:focus {
+  border-color: #007BFF;
+  outline: none;
+}
+
+.form-buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.modal-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 25px;
+  background-color: #6c757d;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.modal-button:hover {
+  background-color: #5a6268;
+}
+
+.modal-button:nth-child(2) {
+  background-color: #2e6e41;
+}
+
+.modal-button:nth-child(2):hover {
+  background-color: #124727;
+}
+
+.me {
+  display: flex;
+  justify-content: right;
+  margin-right: 10px;
+}
+
+

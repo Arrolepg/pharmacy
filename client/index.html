@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Менеджер аптечных заказов</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-content">
+        <h1>Менеджер аптечных заказов</h1>
+        <div id="currentDate" class="current-date">Загрузка даты...</div>
+      </div>
+      <div class="user-info">
+        <img src="../images/santa.jpg" alt="User Avatar" class="user-avatar">
+        <span class="user-name">Санта Клаус</span>
+      </div>
+    </header>
+
+    <!-- Switch day button -->
+    <button class="switch-day" onclick="switchDay()">Следующий день</button>
+
+    <!-- Create New Order Section -->
+    <section id="newOrderSection">
+      <div class="create-order-form">
+        <h2>Создать новый заказ</h2>
+        <form id="createOrderForm">
+          <label for="customerName">Имя покупателя:</label>
+          <input type="text" id="customerName" required>
+
+          <label for="orderDate">Дата заказа:</label>
+          <input type="date" id="orderDate" required>
+
+          <div class="checkbox-container">
+            <input type="checkbox" id="prescription" class="large-checkbox">
+            <label for="prescription" class="checkbox-label">Рецепты предоставлены?</label>
+          </div>
+          <div class="form-buttons">
+            <button type="submit" class="create-but">Создать заказ</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- Orders Section -->
+    <section id="ordersSection">
+      <h2>Сегодняшние заказы</h2>
+      <div id="orders" class="orders-card">
+        <!-- Orders will be dynamically rendered here -->
+      </div>
+    </section>
+  </div>
+  
+  <!-- Error/Success Message Section -->
+  <div id="error-message" class="hidden">
+    <div id="error-text"></div>
+    <button id="close-error" class="close-button" >
+      <img src="../assets/delete-button.svg" alt="Close" />
+    </button>
+  </div>
+  
+
+    <!-- Add Position Modal -->
+    <div id="addPositionModal" class="modal">
+      <div class="modal-content">
+        <img src="../assets/delete-button.svg" class="close" id="closeModal" alt="Close">
+        <h2>Добавить позицию</h2>
+        <form id="addPositionForm">
+          <label for="drugName">Название препарата:</label>
+          <input type="text" id="drugName" name="drugName" required class="input-field">
+          
+          <label for="quantity">Количество:</label>
+          <input type="number" id="quantity" name="quantity" min="1" required class="input-field">
+          
+          <div class="form-buttons">
+            <button type="button" id="cancelBtn" class="modal-button">Отмена</button>
+            <button type="submit" id="submitBtn" class="modal-button">Отправить</button>
+            
+          </div>
+        </form>
+      </div>
+    </div>
+  
+
+  <footer class="me">
+    Pharmacy Orders App Колыхалов Д. В. РК6-74Б © 2024
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+<!-- was 33 -->
